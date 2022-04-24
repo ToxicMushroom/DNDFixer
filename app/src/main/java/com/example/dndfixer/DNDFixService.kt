@@ -21,7 +21,7 @@ class DNDFixService : JobService() {
             Log.d(
                 "BGcheckService: ",
                 "dndautotoggle: ${preferences.getBoolean("dndautotoggle", false)}"
-            );
+            )
             if (preferences.getBoolean("dndautotoggle", false)) {
                 nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY) // DND
             }

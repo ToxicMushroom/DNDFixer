@@ -1,15 +1,10 @@
 package com.example.dndfixer
 
 import android.Manifest
-import android.app.NotificationManager
 import android.app.job.JobScheduler
-import android.app.job.JobService
 import android.content.Intent
-import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +12,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.preference.PreferenceManager
 import kotlinx.coroutines.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -70,7 +64,8 @@ class StatusFragment : Fragment() {
             Util.scheduleJob(it.context)
         }
         view.findViewById<Button>(R.id.button3).setOnClickListener {
-            startActivityForResult(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS), 0)
+            val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
+            resultLauncher.launch(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
         }
         val contract = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (!granted) {
