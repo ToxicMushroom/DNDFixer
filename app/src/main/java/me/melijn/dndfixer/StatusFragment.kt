@@ -16,17 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import kotlinx.coroutines.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [StatusFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StatusFragment : Fragment() {
+    private val resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {}
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,10 +27,19 @@ class StatusFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_status, container, false)
+
+        // buttons
         view.findViewById<Button>(R.id.button).setOnClickListener {
             view.findNavController().navigate(R.id.action_statusFragment_to_settingsFragment)
         }
+        view.findViewById<Button>(R.id.button2).setOnClickListener {
+            Util.scheduleJob(it.context)
+        }
+        view.findViewById<Button>(R.id.button3).setOnClickListener {
+            resultLauncher.launch(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
+        }
 
+        // status updater
         val textBox = view.findViewById<TextView>(R.id.textView)
         val jobScheduler: JobScheduler = view.context.getSystemService(JobScheduler::class.java)
         CoroutineScope(Dispatchers.Default).launch {
@@ -49,13 +51,8 @@ class StatusFragment : Fragment() {
             }
         }
 
-        view.findViewById<Button>(R.id.button2).setOnClickListener {
-            Util.scheduleJob(it.context)
-        }
-        view.findViewById<Button>(R.id.button3).setOnClickListener {
-            val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {}
-            resultLauncher.launch(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
-        }
+        // this does nothing afaik, ACCESS_NOTIFICATION_POLICY will look like it's granted but actually not
+        // use button3 to open the settings activity and grant manually :)
         val contract = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (!granted) {
                 Toast.makeText(view.context, "Sad", Toast.LENGTH_LONG).show()
