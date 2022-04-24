@@ -6,11 +6,11 @@
     app:startDestination="@id/statusFragment">
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.dndfixer.SettingsActivity$SettingsFragment"
+        android:name="me.melijn.dndfixer.SettingsActivity$SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/statusFragment"
-        android:name="com.example.dndfixer.StatusFragment"
+        android:name="me.melijn.dndfixer.StatusFragment"
         android:label="fragment_status"
         tools:layout="@layout/fragment_status" >
         <action

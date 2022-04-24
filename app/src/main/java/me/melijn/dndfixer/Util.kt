@@ -1,4 +1,4 @@
-package com.example.dndfixer
+package me.melijn.dndfixer
 
 import android.app.job.JobInfo
 import android.app.job.JobScheduler

@@ -1,8 +1,7 @@
-package com.example.dndfixer
+package me.melijn.dndfixer
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).

@@ -1,4 +1,4 @@
-package com.example.dndfixer
+package me.melijn.dndfixer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

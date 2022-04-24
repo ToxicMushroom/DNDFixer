@@ -1,10 +1,10 @@
-package com.example.dndfixer
+package me.melijn.dndfixer
 
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.example.dndfixer.Util.scheduleJob
+import me.melijn.dndfixer.Util.scheduleJob
 
 
 class DNDServiceStartReceiver : BroadcastReceiver() {
