@@ -12,7 +12,7 @@ import androidx.preference.PreferenceManager
 class DNDFixService : JobService() {
 
     override fun onStartJob(p0: JobParameters?): Boolean {
-        Log.d("BGcheckService: ", "starting job");
+        Log.d("BGcheckService: ", "starting job")
 
         try {
             val nm =
@@ -22,11 +22,12 @@ class DNDFixService : JobService() {
                 "BGcheckService: ",
                 "dndautotoggle: ${preferences.getBoolean("dndautotoggle", false)}"
             );
-            if (preferences.getBoolean("dndautotoggle", false))
-                nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALARMS) // DND
+            if (preferences.getBoolean("dndautotoggle", false)) {
+                nm.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_PRIORITY) // DND
+            }
             Util.scheduleJob(applicationContext)
         } catch (t: Throwable) {
-            Log.d("BGcheckService: ", t.message!!);
+            Log.d("BGcheckService: ", t.message!!)
         }
 
         return true
