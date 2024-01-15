@@ -3,6 +3,7 @@ package me.melijn.dndfixer
 import android.Manifest
 import android.app.job.JobScheduler
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -12,9 +13,15 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class StatusFragment : Fragment() {
     private val resultLauncher = registerForActivityResult(
@@ -35,8 +42,13 @@ class StatusFragment : Fragment() {
         view.findViewById<Button>(R.id.button2).setOnClickListener {
             Util.scheduleJob(it.context)
         }
-        view.findViewById<Button>(R.id.button3).setOnClickListener {
-            resultLauncher.launch(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
+        view.findViewById<Button>(R.id.grant_permissions).setOnClickListener {
+            val dndAccess: Boolean = ContextCompat.checkSelfPermission(it.context, Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS) == PackageManager.PERMISSION_GRANTED
+
+            if (!dndAccess) {
+                Toast.makeText(context, "Please grant dnd access", Toast.LENGTH_SHORT).show()
+                resultLauncher.launch(Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS))
+            }
         }
 
         // status updater

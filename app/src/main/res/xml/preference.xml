@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="dndautotoggle"
-        app:title="Should we always enable DND ?"/>
+    <PreferenceCategory
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="DndFixer Config">
 
+        <SwitchPreferenceCompat
+            app:key="dndautotoggle"
+            app:title="Should we always enable DND ?" />
+    </PreferenceCategory>
 </PreferenceScreen>
