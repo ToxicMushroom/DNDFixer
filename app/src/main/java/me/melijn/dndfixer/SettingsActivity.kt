@@ -3,6 +3,7 @@ package me.melijn.dndfixer
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
+import com.google.android.material.color.DynamicColors
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -16,6 +17,7 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        DynamicColors.applyToActivityIfAvailable(this)
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
